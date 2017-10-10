@@ -1,0 +1,22 @@
+<table>
+  <tr>
+    <th>Team Name</th>
+    <th>Games Played</th>
+    <th>Wins</th>
+    <th>Losses</th>
+    <th>Win %</th>
+    <th>Created At</th>
+  </tr>
+
+  <% @standings.each do |standing| %>
+  <tr>
+    <td><%= standing.team_name %></td>
+    <td><%= standing.games_played %></td>
+    <td><%= standing.wins %></td>
+    <td><%= standing.losses %></td>
+    <td><%= standing.win_loss_pct %></td>
+    <td><%= standing.created_at %></td>
+  </tr>
+  <% end %>
+
+</table>
