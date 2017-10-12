@@ -1,9 +1,16 @@
 <!DOCTYPE html>
 <html>
   <head>
+    <%= javascript_include_tag "http://www.google.com/jsapi", "chartkick" %>
   </head>
 
   <body>
+
+
+    <%= line_chart [
+            {name: "Results", data: @atlanta_results.group(:games_played).sum(:win_loss_pct)},
+            {name: "Goal", data: @atlanta_goals.group(:games_played).sum(:win_loss_pct)} ], discrete: true, min: 0, max: 1%>
+
 
 <table>
   <tr>
