@@ -37,7 +37,7 @@ task :fetch_standings => :environment do
                       "Washington Wizards" => 48.0/82
                      }
 
-  page = Nokogiri::HTML(open("https://www.basketball-reference.com/leagues/NBA_2018.html"))
+  page = Nokogiri::HTML(open("https://www.basketball-reference.com/leagues/NBA_2016.html"))
 
   team_names = page.css("th[data-stat='team_name'] a").map do |team_name|
                 team_name.text
@@ -55,19 +55,21 @@ task :fetch_standings => :environment do
                    per.text.to_f
                  end
 
+
+
+
   ids = (0..29).to_a
 
   ids.each do |id|
-    if Standing.where(team_name: team_names[id], games_played: (wins[id]+losses[id])).empty?
-       #create standing value
+    #if Standing.where(team_name: team_names[id], games_played: (wins[id]+losses[id])).empty?
        Standing.create!(
          team_name: team_names[id], games_played: (wins[id]+losses[id]),
          wins: wins[id], losses: losses[id], win_loss_pct: win_loss_pcts[id])
          #create cooresponding graph goal point
          Standing.create!(
            team_name: "#{team_names[id]} Goal", games_played: (wins[id]+losses[id]),
-           wins: wins[id], losses: losses[id], win_loss_pct: team_benchmarks[team_name])
-    end
+           wins: wins[id], losses: losses[id], win_loss_pct: team_benchmarks[team_names[id]])
+    #end
   end
 
 
